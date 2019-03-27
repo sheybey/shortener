@@ -1,0 +1,5 @@
+# Steam web API key - https://steamcommunity.com/dev/apikey
+STEAM_API_KEY = 'DEADBEEFDEADBEEFDEADBEEFDEADBEEF'
+
+# Any urls that aren't recognized redirect to this URL
+DEFAULT_REDIRECT = 'https://google.com'
