@@ -3,3 +3,4 @@ Flask-WTF~=0.14
 Flask-OpenID-Stateless~=1.2
 Flask-Login~=0.4
 steam~=0.9
+mysqlclient~=1.4
