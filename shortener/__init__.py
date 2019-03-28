@@ -2,9 +2,7 @@ from getpass import getuser
 from os import path
 from importlib import import_module
 
-from flask import Flask
-from flask_openid import OpenID
-from flask_login import LoginManager
+from flask import Flask, g
 
 
 class DefaultConfiguration:
@@ -13,18 +11,27 @@ class DefaultConfiguration:
     MYSQL_PASSWORD = None
     MYSQL_DATABASE = 'shortener'
     MYSQL_PORT = None
+    ENABLE_ADMIN = False
 
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object(DefaultConfiguration)
-app.config.from_pyfile('shortener.cfg', silent=True)
+app.config.from_pyfile('shortener.cfg')
 
-for key in ['STEAM_API_KEY', 'DEFAULT_REDIRECT']:
-    if key not in app.config:
-        raise ValueError('Missing config key:', key)
+if 'DEFAULT_REDIRECT' not in app.config:
+    raise ValueError('Missing default redirect')
 
-openid = OpenID(app, stateless=True)
-login_manager = LoginManager(app)
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, 'db', None)
+    if db is not None:
+        db.close()
+
 
 view = import_module('shortener.views')
 cli = import_module('shortener.cli')
+
+if app.config['ENABLE_ADMIN']:
+    admin = import_module('shortener.admin')
+    admin.register_to(app)

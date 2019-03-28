@@ -1,5 +1,8 @@
+# Enable the admin interface (requires a steam API key)
+ENABLE_ADMIN = False
+
 # Steam web API key - https://steamcommunity.com/dev/apikey
-STEAM_API_KEY = 'DEADBEEFDEADBEEFDEADBEEFDEADBEEF'
+# STEAM_API_KEY = 'DEADBEEFDEADBEEFDEADBEEFDEADBEEF'
 
 # Any urls that aren't recognized redirect to this URL
 DEFAULT_REDIRECT = 'https://google.com'

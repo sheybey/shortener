@@ -1,32 +1,18 @@
 import MySQLdb
-from flask import g
-
-from . import app
+from flask import g, current_app
 
 
 class DatabaseConnection:
-    """Wraps a MySQLdb connection, using app.config."""
+    """Thin DBAPI wrapper."""
 
-    def __init__(self):
-        """Establishes a database connection.
-
-        Connection details are read from app.config."""
-
-        kwargs = {
-            'host': app.config['MYSQL_HOST'],
-            'user': app.config['MYSQL_USER'],
-            'passwd': app.config['MYSQL_PASSWORD'],
-            'db': app.config['MYSQL_DATABASE'],
-            'port': app.config['MYSQL_PORT'],
-            'use_unicode': True,
-            'charset': 'utf8mb4'
-        }
+    def __init__(self, connect=MySQLdb.connect, **kwargs):
+        """Establishes a database connection."""
 
         for key in list(kwargs.keys()):
             if kwargs[key] is None:
                 del kwargs[key]
 
-        self.connection = MySQLdb.connect(**kwargs)
+        self.connection = connect(**kwargs)
         self.connection.autocommit(False)
 
     def __enter__(self):
@@ -60,12 +46,14 @@ def get_db():
     """Get the context database connection, opening it if necessary."""
     db = getattr(g, 'db', None)
     if db is None:
-        db = g.db = DatabaseConnection()
+        kwargs = {
+            'host': current_app.config['MYSQL_HOST'],
+            'user': current_app.config['MYSQL_USER'],
+            'passwd': current_app.config['MYSQL_PASSWORD'],
+            'db': current_app.config['MYSQL_DATABASE'],
+            'port': current_app.config['MYSQL_PORT'],
+            'use_unicode': True,
+            'charset': 'utf8mb4'
+        }
+        db = g.db = DatabaseConnection(**kwargs)
     return db
-
-
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, 'db', None)
-    if db is not None:
-        db.close()
