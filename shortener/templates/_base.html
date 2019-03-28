@@ -2,8 +2,18 @@
 <html>
 <head>
 	<title>{% block title %}{% endblock %}</title>
+	{% block head %}
+	<link
+		type="text/css"
+		rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+		integrity="sha256-2YQRJMXD7pIAPHiXr0s+vlRWA7GYJEK0ARns7k2sbHY="
+		crossorigin="anonymous">
+	{% endblock %}
 </head>
 <body>
-
+	<div class="container">
+		{% block main %}{% endblock %}
+	</div>
 </body>
 </html>
