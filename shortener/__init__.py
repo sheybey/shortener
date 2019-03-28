@@ -12,7 +12,6 @@ class DefaultConfiguration:
     MYSQL_DATABASE = 'shortener'
     MYSQL_PORT = None
     ENABLE_ADMIN = False
-    SECRET_KEY = 'pineapple'
 
 
 app = Flask(__name__, instance_relative_config=True)

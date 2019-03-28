@@ -1,8 +1,14 @@
-# Enable the admin interface (requires a steam API key)
+# Any keys that aren't recognized redirect to this URL.
+DEFAULT_REDIRECT = 'https://google.com'
+
+# Enable the admin interface
 ENABLE_ADMIN = False
 
 # Steam web API key - https://steamcommunity.com/dev/apikey
+# Only required if the admin interface is enabled.
 # STEAM_API_KEY = 'DEADBEEFDEADBEEFDEADBEEFDEADBEEF'
 
-# Any keys that aren't recognized redirect to this URL
-DEFAULT_REDIRECT = 'https://google.com'
+# This key is used for cryptographic purposes. Only required if the admin
+# interface is enabled. A good way to generate a key is:
+# python3 -c "import secrets; print(repr(secrets.token_urlsafe(32)))"
+# SECRET_KEY = 'pineapple'

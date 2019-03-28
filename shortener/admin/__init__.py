@@ -21,6 +21,9 @@ views = import_module('.views', __name__)
 
 
 def register_to(app, url_prefix='/admin'):
+    if 'SECRET_KEY' not in app.config:
+        raise ValueError('Missing secret key')
+
     openid.init_app(app)
     login_manager.init_app(app)
     app.register_blueprint(blueprint, url_prefix=url_prefix)
