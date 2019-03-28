@@ -51,6 +51,7 @@ def user_group():
 
 @user_group.command('list')
 def list_users():
+    """List users."""
     cursor = get_db().cursor()
     cursor.execute('SELECT `id`, `name` FROM `users`')
     for id64, name in cursor.fetchall():
@@ -59,9 +60,10 @@ def list_users():
 
 
 @user_group.command('create')
-@argument('id')
+@argument('id', metavar='<ID | URL>')
 @pass_context
 def create_user(ctx, id):
+    """Create a user from Steam ID or custom URL."""
     steamid = string_to_steamid(id)
     if not steamid.is_valid():
         echo('invalid steam id')
@@ -86,9 +88,10 @@ def create_user(ctx, id):
 
 
 @user_group.command('delete')
-@argument('id64', type=int)
+@argument('id64', type=int, metavar='STEAMID64')
 @pass_context
 def delete_user(ctx, id64):
+    """Delete a user by STEAMID64."""
     db = get_db()
 
     cursor = db.cursor()
@@ -114,6 +117,7 @@ def link_group():
 
 @link_group.command('list')
 def list_links():
+    """List links."""
     cursor = get_db().cursor()
     cursor.execute('SELECT `key`, `target` FROM `links`')
     links = list(cursor.fetchall())
@@ -135,6 +139,7 @@ def list_links():
 @argument('target')
 @pass_context
 def create_link(ctx, key, target):
+    """Create a link KEY -> TARGET."""
     try:
         with get_db() as cursor:
             cursor.execute(
@@ -154,7 +159,8 @@ def create_link(ctx, key, target):
 @link_group.command('delete')
 @argument('key')
 @pass_context
-def delete_user(ctx, key):
+def delete_link(ctx, key):
+    """Delete a link."""
     db = get_db()
 
     cursor = db.cursor()
