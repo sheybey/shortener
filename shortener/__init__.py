@@ -29,8 +29,8 @@ def close_connection(exception):
         db.close()
 
 
-view = import_module('shortener.views')
-cli = import_module('shortener.cli')
+view = import_module('.views', __name__)
+cli = import_module('.cli', __name__)
 
 if app.config['ENABLE_ADMIN']:
     admin = import_module('shortener.admin')

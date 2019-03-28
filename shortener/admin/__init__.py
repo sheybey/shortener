@@ -1,3 +1,5 @@
+from importlib import import_module
+
 from flask import Blueprint
 from flask_openid import OpenID
 from flask_login import LoginManager
@@ -14,6 +16,8 @@ blueprint = Blueprint(
     template_folder='templates',
     static_folder='static'
 )
+
+views = import_module('.views', __name__)
 
 
 def register_to(app):
