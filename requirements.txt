@@ -1,6 +1,2 @@
 Flask~=1.0
 mysqlclient~=1.4
-Flask-WTF[admin]~=0.14
-Flask-OpenID-Stateless[admin]~=1.2
-Flask-Login[admin]~=0.4
-steam[admin]~=0.9
