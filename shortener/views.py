@@ -1,3 +1,5 @@
+from flask import redirect
+
 from . import app
 from .db import get_db
 

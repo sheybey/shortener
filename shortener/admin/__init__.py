@@ -20,8 +20,8 @@ blueprint = Blueprint(
 views = import_module('.views', __name__)
 
 
-def register_to(app):
+def register_to(app, url_prefix='/admin'):
     openid.init_app(app)
     login_manager.init_app(app)
-    app.register_blueprint(blueprint)
+    app.register_blueprint(blueprint, url_prefix=url_prefix)
     register_commands(app.cli)

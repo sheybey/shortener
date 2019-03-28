@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+{% block title %}Unauthorized{% endblock %}
+{% block main %}
+<div class="row">
+  <p>
+    You are authenticated as
+    <a href="https://steamcommunity.com/profiles/{{ id }}">
+      Steam user {{ id }}
+    </a>,
+    but your account does not have access to administrate this link shortener.
+  </p>
+  <p><a href="{{ url_for('.logout') }}">Log out</a></p>
+</div>
+{% endblock %}

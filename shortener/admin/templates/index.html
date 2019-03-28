@@ -1,0 +1,15 @@
+{% extends '_base.html' %}
+{% block title %}Index{% endblock %}
+{% block main %}
+<div class="row">
+  <p>
+    Authenticated as
+    <a href="https://steamcommunity.com/profiles/{{ current_user.id }}">
+      {{ current_user.name }}
+    </a>
+  </p>
+  {% for cls, msg in get_flashed_messages(True) %}
+    <p>{{ cls }}: {{ msg }}</p>
+  {% endfor %}
+</div>
+{% endblock %}
