@@ -13,7 +13,6 @@ def list_users():
     cursor.close()
 
 
-
 def create_user(ctx, id):
     """Create a user from Steam ID or custom URL."""
     steamid = string_to_steamid(id)

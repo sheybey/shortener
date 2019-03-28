@@ -16,7 +16,6 @@ blueprint = Blueprint(
 )
 
 
-
 def register_to(app):
     openid.init_app(app)
     login_manager.init_app(app)
