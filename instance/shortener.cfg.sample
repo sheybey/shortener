@@ -1,6 +1,11 @@
 # Any keys that aren't recognized redirect to this URL.
 DEFAULT_REDIRECT = 'https://google.com'
 
+# Return 404 Not Found instead of trying to resolve a shortlink for
+# favicon.ico and robots.txt
+IGNORE_FAVICON = True
+IGNORE_ROBOTS = True
+
 # Enable the admin interface
 ENABLE_ADMIN = False
 

@@ -13,6 +13,8 @@ class DefaultConfiguration:
     MYSQL_PORT = None
     MYSQL_SOCKET = None
     ENABLE_ADMIN = False
+    IGNORE_FAVICON = True
+    IGNORE_ROBOTS = True
 
 
 app = Flask(__name__, instance_relative_config=True)
