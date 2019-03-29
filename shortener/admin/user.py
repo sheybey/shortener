@@ -24,4 +24,3 @@ def user_loader(id):
         return User(int(id))
     except ValueError:
         return None
-    
