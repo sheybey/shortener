@@ -1,6 +1,5 @@
+import MySQLdb
 from click import echo, argument, pass_context
-from steam.steamid import SteamID
-from steam.enums.common import EType
 
 from . import app
 from .db import get_db

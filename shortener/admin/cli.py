@@ -1,4 +1,5 @@
 from click import echo, argument, pass_context
+from steam.enums.common import EType
 
 from shortener.db import get_db
 from shortener.admin.util import resolve_steam_names, string_to_steamid
