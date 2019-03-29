@@ -52,6 +52,7 @@ def get_db():
             'passwd': current_app.config['MYSQL_PASSWORD'],
             'db': current_app.config['MYSQL_DATABASE'],
             'port': current_app.config['MYSQL_PORT'],
+            'unix_socket': current_app.config['MYSQL_SOCKET'],
             'use_unicode': True,
             'charset': 'utf8mb4'
         }

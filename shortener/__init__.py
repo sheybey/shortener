@@ -11,6 +11,7 @@ class DefaultConfiguration:
     MYSQL_PASSWORD = None
     MYSQL_DATABASE = 'shortener'
     MYSQL_PORT = None
+    MYSQL_SOCKET = None
     ENABLE_ADMIN = False
 
 
