@@ -1,0 +1,88 @@
+{% from '_macros.html' import style %}
+{% extends '_base.html' %}
+{% block title %}Links{% endblock %}
+{% block head %}
+  {{ super() }}
+  {{ style('links') }}
+{% endblock %}
+{% block main %}
+{{ super() }}
+<table class="u-full-width">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th colspan="2">Target</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      <input
+        placeholder="Key"
+        name="key"
+        type="text"
+        form="new_link"
+        maxlength="128">
+    </td>
+    <td class="u-full-width">
+      <input
+        placeholder="Target"
+        name="target"
+        type="text"
+        form="new_link"
+        class="u-full-width"
+        maxlength="1024">
+    </td>
+    <td>
+      <form
+        id="new_link" method="POST" action="{{ url_for('.new_link') }}">
+        {{ save_form.csrf_token }}
+        <input
+          type="submit"
+          class="u-full-width button-primary"
+          value="Create link">
+      </form>
+    </td>
+  </tr>
+  {% for link in links %}
+    {% set form_id = 'save_' ~ link['id'] %}
+    <tr>
+      <td>
+        {{ save_form.key(
+          maxlength=128,
+          id=form_id+'_key',
+          form=form_id,
+          value=link['key'],
+          placeholder='Key'
+        ) }}
+      </td>
+      <td class="u-full-width">
+        {{ save_form.target(
+          maxlength=1024,
+          id=form_id+'_target',
+          form=form_id,
+          value=link['target'],
+          placeholder='Target',
+          class_='u-full-width'
+        ) }}
+      </td>
+      <td>
+        <form
+          id="{{ form_id }}"
+          method="POST"
+          action="{{ url_for('.save_link', id=link['id']) }}">
+            {{ save_form.csrf_token }}
+            <input type="submit" value="Save">
+        </form>
+        <form
+          method="POST"
+          action="{{ url_for('.delete_link', id=link['id']) }}">
+            {{ delete_form.csrf_token }}
+            <input class="button-danger" type="submit" value="Delete">
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

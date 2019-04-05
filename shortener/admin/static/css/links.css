@@ -1,0 +1,16 @@
+table input {
+    margin: 0;
+}
+
+table form{
+    display: inline;
+    margin-bottom: 0;
+}
+
+table form:not(:first-child) {
+    margin-left: 1rem;
+}
+
+td {
+    white-space: nowrap;
+}

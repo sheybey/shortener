@@ -1,3 +1,4 @@
+{% from '_macros.html' import render_flashed_messages, script, style %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +14,23 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
     integrity="sha256-2YQRJMXD7pIAPHiXr0s+vlRWA7GYJEK0ARns7k2sbHY="
     crossorigin="anonymous">
+    {{ style('base') }}
   {% endblock %}
 </head>
 <body>
   <div class="container">
-    {% block main %}{% endblock %}
+    {% block main %}
+      <div class="row">
+        <nav>
+          <a href="{{ url_for('.links') }}">Links</a>
+          <a href="{{ url_for('.users') }}">Users</a>
+        </nav>
+      </div>
+      {{ render_flashed_messages() }}
+    {% endblock %}
   </div>
+  {% block scripts %}
+    {{ script('message') }}
+  {% endblock %}
 </body>
 </html>

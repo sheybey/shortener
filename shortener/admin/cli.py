@@ -26,13 +26,14 @@ def create_user(ctx, id):
 
     id64 = steamid.as_64
     name = resolve_steam_names([id64]).get(id64)
+    db = get_db()
     try:
-        with get_db() as cursor:
+        with db as cursor:
             cursor.execute(
                 'INSERT INTO `users` (`id`, `name`) VALUES(%s, %s)',
                 (steamid, name)
             )
-    except MySQLdb.IntegrityError:
+    except db.IntegrityError:
         echo('user ' + str(id64) + ' already exists')
         ctx.exit(1)
 

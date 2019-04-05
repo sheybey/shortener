@@ -1,0 +1,61 @@
+html {
+    font-family: sans-serif;
+}
+
+.message {
+    border-radius: 4px;
+    background-image: repeating-linear-gradient(
+        120deg,
+        rgba(0, 0, 0, 0) 0px,
+        rgba(0, 0, 0, 0) 12px,
+        rgba(0, 0, 0, 0.1) 12px,
+        rgba(0, 0, 0, 0.1) 24px
+    );
+    padding: 0 0.5em;
+    font-weight: 600;
+    margin: 1rem 0;
+}
+
+.message.warning {
+    color: #856404;
+    background-color: #fff3cd;
+}
+
+.message.error {
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
+.message.success {
+    color: #155724;
+    background-color: #d4edda;
+}
+
+.message p {
+    margin-bottom: 0;
+    display: inline-block;
+    float: left;
+}
+
+.message .close {
+    color: #333;
+    padding: 0;
+    margin: 0;
+    font-size: 200%;
+    line-height: 0.5;
+    display: inline-block;
+    float: right;
+    vertical-align: baseline;
+    cursor: pointer;
+}
+
+input.button-danger, button.button-danger, a.button-danger {
+    color: #aa0000;
+    border-color: #aa0000;
+}
+
+input.button-danger:hover, button.button-danger:hover, a.button-danger:hover {
+    color: red;
+    border-color: red;
+}
+}

@@ -1,0 +1,22 @@
+{% macro render_message(cls, message) %}
+  <div class="row message {{ cls }}">
+    <p>{{ message }}</p>
+  </div>
+{% endmacro %}
+{% macro render_flashed_messages() %}
+  {% for cls, message in get_flashed_messages(True) %}
+    {{ render_message(cls, message) }}
+  {% endfor %}
+{% endmacro %}
+{% macro script(name) %}
+  <script
+    type="application/javascript"
+    src="{{ url_for('.static', filename='js/' + name + '.js') }}"
+    ></script>
+{% endmacro %}
+{% macro style(name) %}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{ url_for('.static', filename='css/' + name + '.css') }}">
+{% endmacro %}
