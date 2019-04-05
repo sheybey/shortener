@@ -10,7 +10,6 @@ class DatabaseConnection:
         """Establishes a database connection."""
         dbapi = import_module(dbapi)
         self.connection = dbapi.connect(**kwargs)
-        self.connection.autocommit(False)
 
         for name in [
             'InterfaceError',
