@@ -1,17 +1,16 @@
 from getpass import getuser
-from os import path
 from importlib import import_module
 
 from flask import Flask, g
 
 
 class DefaultConfiguration:
-    MYSQL_HOST = 'localhost'
-    MYSQL_USER = getuser()
-    MYSQL_PASSWORD = None
-    MYSQL_DATABASE = 'shortener'
-    MYSQL_PORT = None
-    MYSQL_SOCKET = None
+    DBAPI = 'MySQLdb'
+    DB_HOST = 'localhost'
+    DB_USER = getuser()
+    DB_DATABASE = 'shortener'
+    DB_USE_UNICODE = True
+    DB_CHARSET = 'utf8mb4'
     ENABLE_ADMIN = False
     IGNORE_FAVICON = True
     IGNORE_ROBOTS = True

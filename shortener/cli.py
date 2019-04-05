@@ -1,4 +1,3 @@
-import MySQLdb
 from click import echo, argument, pass_context
 
 from . import app
@@ -58,16 +57,17 @@ def list_links():
 @pass_context
 def create_link(ctx, key, target):
     """Create a link KEY -> TARGET."""
+    db = get_db()
     try:
-        with get_db() as cursor:
+        with db as cursor:
             cursor.execute(
                 'INSERT INTO `links` (`key`, `target`) VALUES(%s, %s)',
                 (key, target)
             )
-    except MySQLdb.IntegrityError:
+    except db.IntegrityError:
         echo('link "' + key + '" already exists')
         ctx.exit(1)
-    except MySQLdb.DataError as e:
+    except db.DataError as e:
         echo('invalid link: ' + str(e.args[1]))
         ctx.exit(1)
 
@@ -79,18 +79,10 @@ def create_link(ctx, key, target):
 @pass_context
 def delete_link(ctx, key):
     """Delete a link."""
-    db = get_db()
+    with get_db() as cursor:
+        cursor.execute('DELETE FROM `links` WHERE `key`=%s', (key,))
+        if cursor.rowcount != 1:
+            echo('no such link ' + key)
+            ctx.exit(1)
 
-    cursor = db.cursor()
-    cursor.execute('SELECT `id`, `key` FROM `links` WHERE `key`=%s', (key,))
-    result = cursor.fetchone()
-    cursor.close()
-
-    if not result:
-        echo('no such link ' + key)
-        ctx.exit(1)
-
-    with db as cursor:
-        cursor.execute('DELETE FROM `links` WHERE `id`=%s', (result[0],))
-
-    echo('deleted link "' + result[1] + '"')
+    echo('deleted link "' + key + '"')

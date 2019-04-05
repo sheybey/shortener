@@ -6,6 +6,14 @@ DEFAULT_REDIRECT = 'https://google.com'
 IGNORE_FAVICON = True
 IGNORE_ROBOTS = True
 
+# Import name for PEP 249 DBAPI module
+DBAPI = 'MySQLdb'
+
+# Keyword arguments to be passed to the database connect function can be
+# specified with config keys by uppercasing the name and prefixing it with
+# `DB_`. For instance, you could change the mysql unix socket path like this:
+# DB_UNIX_SOCKET = '/tmp/mysql.sock'
+
 # Enable the admin interface
 ENABLE_ADMIN = False
 

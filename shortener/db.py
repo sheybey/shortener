@@ -1,25 +1,33 @@
-import MySQLdb
+from importlib import import_module
+
 from flask import g, current_app
 
 
 class DatabaseConnection:
     """Thin DBAPI wrapper."""
 
-    def __init__(self, connect=MySQLdb.connect, **kwargs):
+    def __init__(self, dbapi, **kwargs):
         """Establishes a database connection."""
-
-        for key in list(kwargs.keys()):
-            if kwargs[key] is None:
-                del kwargs[key]
-
-        self.connection = connect(**kwargs)
+        dbapi = import_module(dbapi)
+        self.connection = dbapi.connect(**kwargs)
         self.connection.autocommit(False)
+
+        for name in [
+            'InterfaceError',
+            'DatabaseError',
+            'DataError',
+            'OperationalError',
+            'IntegrityError',
+            'InternalError',
+            'ProgrammingError',
+            'NotSupportedError'
+        ]:
+            setattr(self, name, getattr(dbapi, name))
 
     def __enter__(self):
         """Context manager for a cursor object.
 
         Commits on exit. Raise an exception to cause a rollback."""
-
         self._cursor = self.cursor()
         return self._cursor
 
@@ -47,14 +55,9 @@ def get_db():
     db = getattr(g, 'db', None)
     if db is None:
         kwargs = {
-            'host': current_app.config['MYSQL_HOST'],
-            'user': current_app.config['MYSQL_USER'],
-            'passwd': current_app.config['MYSQL_PASSWORD'],
-            'db': current_app.config['MYSQL_DATABASE'],
-            'port': current_app.config['MYSQL_PORT'],
-            'unix_socket': current_app.config['MYSQL_SOCKET'],
-            'use_unicode': True,
-            'charset': 'utf8mb4'
+            key[3:].lower(): current_app.config[key]
+            for key in current_app.config
+            if key.startswith('DB_')
         }
-        db = g.db = DatabaseConnection(**kwargs)
+        db = g.db = DatabaseConnection(current_app.config['DBAPI'], **kwargs)
     return db
