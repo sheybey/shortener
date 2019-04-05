@@ -13,7 +13,7 @@ from ..db import get_db
 @openid.loginhandler
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('.index'))
+        return redirect(url_for('.links'))
 
     error = openid.fetch_error()
     if error:
@@ -28,7 +28,7 @@ def after_login(response):
     try:
         user = User(id)
         login_user(user)
-        return redirect(url_for('.index'))
+        return redirect(url_for('.links'))
     except ValueError:
         return render_template('unauthorized.html', id=id)
 
