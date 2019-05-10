@@ -17,21 +17,19 @@
   <tbody>
   <tr>
     <td>
-      <input
-        placeholder="Key"
-        name="key"
-        type="text"
-        form="new_link"
-        maxlength="128">
+      {{ save_form.key(
+        maxlength=128,
+        form='new_link',
+        placeholder='Key'
+      ) }}
     </td>
     <td class="u-full-width">
-      <input
-        placeholder="Target"
-        name="target"
-        type="text"
-        form="new_link"
-        class="u-full-width"
-        maxlength="1024">
+      {{ save_form.target(
+        maxlength=1024,
+        form='new_link',
+        placeholder='Target',
+        class_="u-full-width"
+      ) }}
     </td>
     <td>
       <form
